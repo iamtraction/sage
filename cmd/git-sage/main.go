@@ -19,5 +19,14 @@ func main() {
 		fmt.Fprintln(os.Stderr, "git-sage: not a git repository")
 		os.Exit(1)
 	}
+	hasStaged, err := git.HasStagedChanges(ctx)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "git-sage: %v\n", err)
+		os.Exit(1)
+	}
+	if !hasStaged {
+		fmt.Fprintln(os.Stderr, "git-sage: no staged changes")
+		os.Exit(0)
+	}
 	fmt.Println("git-sage: run 'git sage help' for more information")
 }

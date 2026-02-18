@@ -1,0 +1,47 @@
+package git
+
+import (
+	"bufio"
+	"context"
+	"os/exec"
+	"strings"
+)
+
+// FileChange represents a staged file change
+type FileChange struct {
+	Status  string // A, M, D, R, or C
+	Path    string
+	OldPath string // old path for R and C
+}
+
+// GetNameStatus returns staged file changes and parses A, M, D, R, and C lines.
+func GetNameStatus(ctx context.Context) ([]FileChange, error) {
+	cmd := exec.CommandContext(ctx, "git", "diff", "--staged", "--name-status")
+	out, err := cmd.Output()
+	if err != nil {
+		return nil, err
+	}
+	var changes []FileChange
+	scanner := bufio.NewScanner(strings.NewReader(string(out)))
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		if line == "" {
+			continue
+		}
+		fields := strings.Split(line, "\t")
+		switch len(fields) {
+		case 2:
+			changes = append(changes, FileChange{Status: fields[0], Path: fields[1]})
+		case 3:
+			changes = append(changes, FileChange{
+				Status:  fields[0],
+				OldPath: fields[1],
+				Path:    fields[2],
+			})
+		}
+	}
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
+	return changes, nil
+}

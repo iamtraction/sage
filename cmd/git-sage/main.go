@@ -6,7 +6,10 @@ import (
 	"os"
 
 	"git-sage/internal/git"
+	"git-sage/internal/tokens"
 )
+
+const tokenLimit = 100_000
 
 func main() {
 	ctx := context.Background()
@@ -28,5 +31,17 @@ func main() {
 		fmt.Fprintln(os.Stderr, "git-sage: no staged changes")
 		os.Exit(0)
 	}
-	fmt.Println("git-sage: run 'git sage help' for more information")
+	diff, err := git.GetStagedDiff(ctx, 3)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "git-sage: %v\n", err)
+		os.Exit(1)
+	}
+	if tokens.Estimate(diff) > tokenLimit {
+		diff, err = git.GetStagedDiff(ctx, 0)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "git-sage: %v\n", err)
+			os.Exit(1)
+		}
+	}
+	fmt.Printf("%d tokens\n", tokens.Estimate(diff))
 }

@@ -7,7 +7,7 @@ import (
 	"git-sage/internal/config"
 )
 
-var configKeys = []string{"provider", "model", "instructions", "api_key", "token_limit"}
+var configKeys = []string{"provider", "model", "instructions", "api_key"}
 
 func getConfigValue(cfg *config.Config, key string) (any, bool) {
 	switch key {
@@ -19,8 +19,6 @@ func getConfigValue(cfg *config.Config, key string) (any, bool) {
 		return cfg.Instructions, true
 	case "api_key":
 		return cfg.APIKey, true
-	case "token_limit":
-		return cfg.TokenLimit, true
 	default:
 		return nil, false
 	}
@@ -39,13 +37,6 @@ func setConfigValue(cfg *config.Config, key string, value string) error {
 		return nil
 	case "api_key":
 		cfg.APIKey = value
-		return nil
-	case "token_limit":
-		n, err := strconv.Atoi(value)
-		if err != nil {
-			return fmt.Errorf("invalid number %q for key %q", value, key)
-		}
-		cfg.TokenLimit = n
 		return nil
 	default:
 		return fmt.Errorf("unknown config key %q", key)

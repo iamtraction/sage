@@ -16,9 +16,8 @@ const (
 type Config struct {
 	Provider     string `json:"provider"`
 	Model        string `json:"model"`
-	Instructions string `json:"instructions,omitempty"`
 	APIKey       string `json:"api_key,omitempty"`
-	TokenLimit   int    `json:"token_limit,omitempty"`
+	Instructions string `json:"instructions,omitempty"`
 }
 
 func ConfigPath() (string, error) {

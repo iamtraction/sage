@@ -45,3 +45,17 @@ func GetNameStatus(ctx context.Context) ([]FileChange, error) {
 	}
 	return changes, nil
 }
+
+// FormatNameStatus formats the name status for the prompt.
+func FormatNameStatus(changes []FileChange) string {
+	var sb strings.Builder
+	for i, change := range changes {
+		sb.WriteString(change.Status)
+		sb.WriteString("\t")
+		sb.WriteString(change.Path)
+		if i != len(changes)-1 {
+			sb.WriteString("\n")
+		}
+	}
+	return sb.String()
+}

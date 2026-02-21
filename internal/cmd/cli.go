@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"git-sage/internal/cmd/commit"
 	"git-sage/internal/cmd/config"
 	"git-sage/internal/logger"
 )
@@ -10,6 +11,8 @@ func Run(args []string) int {
 		return runDefault()
 	}
 	switch args[0] {
+	case "commit":
+		return commit.Run(args[1:])
 	case "config":
 		return config.Run(args[1:])
 	default:

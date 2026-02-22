@@ -8,7 +8,7 @@ import (
 
 // Commit commits the changes with the given message.
 func Commit(ctx context.Context, message string) (string, error) {
-	cmd := exec.CommandContext(ctx, "git", "commit", "-m", message)
+	cmd := exec.CommandContext(ctx, "git", "commit", "-s", "-m", message)
 	out, err := cmd.Output()
 	if err != nil {
 		return "", err

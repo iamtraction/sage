@@ -14,7 +14,8 @@ func runDefault() int {
 	fmt.Println("  git-sage <command> [options]")
 	fmt.Println()
 	fmt.Println("Commands:")
-	fmt.Println("  commit: auto-generate commit message from staged changes")
-	fmt.Println("  config: show and set configuration values")
+	fmt.Println("  commit:   auto-generate commit message from staged changes")
+	fmt.Println("  config:   show and set configuration values")
+	fmt.Println("  version:  show version information")
 	return 0
 }

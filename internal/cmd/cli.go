@@ -7,6 +7,7 @@ import (
 	"git-sage/internal/cmd/config"
 	"git-sage/internal/git"
 	"git-sage/internal/logger"
+	"git-sage/internal/version"
 )
 
 func Run(args []string) int {
@@ -14,6 +15,11 @@ func Run(args []string) int {
 
 	if len(args) < 1 {
 		return runDefault()
+	}
+
+	if args[0] == "version" {
+		logger.Info(version.Version)
+		return 0
 	}
 
 	inside, err := git.IsGitRepo(ctx)

@@ -10,6 +10,7 @@ import (
 	_ "git-sage/internal/llm/anthropic"
 	_ "git-sage/internal/llm/claude-code"
 	_ "git-sage/internal/llm/codex"
+	_ "git-sage/internal/llm/gemini-cli"
 	_ "git-sage/internal/llm/google"
 	_ "git-sage/internal/llm/openai"
 	"git-sage/internal/logger"

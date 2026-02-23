@@ -108,12 +108,6 @@ git-sage config model gemini-2.5-flash     # for google
 git-sage config model sonnet               # for claude-code (uses CLI aliases)
 ```
 
-To reset to the provider's default, clear the model:
-
-```sh
-git-sage config model ""
-```
-
 ## Usage
 
 ```sh

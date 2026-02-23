@@ -27,6 +27,9 @@ func getConfigValue(cfg *config.Config, key string) (any, bool) {
 func setConfigValue(cfg *config.Config, key string, value string) error {
 	switch key {
 	case "provider":
+		if cfg.Provider != value {
+			cfg.Model = ""
+		}
 		cfg.Provider = value
 		return nil
 	case "model":

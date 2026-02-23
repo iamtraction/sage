@@ -1,6 +1,6 @@
 # sage
 
-AI-powered commit message generator. Stage your changes, run `sage commit`, and get a [Conventional Commit](https://www.conventionalcommits.org/) message — no thinking required.
+AI-powered Git intelligence assistant. Currently generates [Conventional Commit](https://www.conventionalcommits.org/) messages from staged changes — with more Git smarts on the way.
 
 ## Install
 
@@ -118,7 +118,7 @@ git add -A
 sage commit
 ```
 
-That's it. sage will analyze your staged diff, generate a Conventional Commit message, and run `git commit` for you.
+That's it. sage analyzes your staged diff, generates a Conventional Commit message, and commits the changes for you.
 
 ## License
 

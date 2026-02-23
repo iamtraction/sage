@@ -8,7 +8,7 @@ import (
 func runDefault() int {
 	fmt.Println("sage")
 	fmt.Println()
-	fmt.Println("Git intelligence CLI tool.")
+	fmt.Println("AI-powered Git intelligence assistant.")
 	fmt.Println()
 	fmt.Println("Usage:")
 	fmt.Println("  sage <command> [options]")

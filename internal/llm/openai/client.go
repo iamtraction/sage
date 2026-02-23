@@ -3,7 +3,7 @@ package openai
 import (
 	"context"
 
-	"git-sage/internal/llm"
+	"github.com/iamtraction/sage/internal/llm"
 
 	"github.com/openai/openai-go/v3"
 	"github.com/openai/openai-go/v3/option"

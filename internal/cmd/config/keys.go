@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"git-sage/internal/config"
+	"github.com/iamtraction/sage/internal/config"
 )
 
 var configKeys = []string{"provider", "model", "instructions", "api_key"}

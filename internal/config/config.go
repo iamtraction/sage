@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	configDir  = "git-sage"
+	configDir  = "sage"
 	configFile = "config.json"
 )
 

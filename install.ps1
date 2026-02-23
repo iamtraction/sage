@@ -9,18 +9,18 @@ $Arch = switch ($env:PROCESSOR_ARCHITECTURE) {
 # resolve latest release version from GitHub
 $Latest = Invoke-RestMethod -Uri "https://api.github.com/repos/iamtraction/sage/releases/latest"
 $Version = $Latest.tag_name
-$Artifact = "git-sage_$Version`_windows_$Arch.zip"
+$Artifact = "sage_$Version`_windows_$Arch.zip"
 $Url = "https://github.com/iamtraction/sage/releases/download/$Version/$Artifact"
 
 $InstallDir = "$env:LOCALAPPDATA\bin"
 New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
 
 # download and extract binary
-Write-Host "Installing git-sage $Version to $InstallDir"
-$ZipPath = "$env:TEMP\git-sage.zip"
+Write-Host "Installing sage $Version to $InstallDir"
+$ZipPath = "$env:TEMP\sage.zip"
 Invoke-WebRequest -Uri $Url -OutFile $ZipPath -UseBasicParsing
 Expand-Archive -Path $ZipPath -DestinationPath $env:TEMP -Force
-Move-Item -Path "$env:TEMP\git-sage.exe" -Destination "$InstallDir\git-sage.exe" -Force
+Move-Item -Path "$env:TEMP\sage.exe" -Destination "$InstallDir\sage.exe" -Force
 Remove-Item $ZipPath -Force
 
 Write-Host "Installed."

@@ -5,14 +5,14 @@ before:
     - go mod tidy
 
 builds:
-  - id: git-sage
-    main: ./cmd/git-sage
-    binary: git-sage
+  - id: sage
+    main: .
+    binary: sage
     env:
       - CGO_ENABLED=0
     ldflags:
       - -s -w
-      - -X git-sage/internal/version.Version={{ .Version }}
+      - -X github.com/iamtraction/sage/internal/version.Version={{ .Version }}
     goos:
       - linux
       - windows

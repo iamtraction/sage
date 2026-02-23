@@ -3,11 +3,11 @@ package cmd
 import (
 	"context"
 
-	"git-sage/internal/cmd/commit"
-	"git-sage/internal/cmd/config"
-	"git-sage/internal/git"
-	"git-sage/internal/logger"
-	"git-sage/internal/version"
+	"github.com/iamtraction/sage/internal/cmd/commit"
+	"github.com/iamtraction/sage/internal/cmd/config"
+	"github.com/iamtraction/sage/internal/git"
+	"github.com/iamtraction/sage/internal/logger"
+	"github.com/iamtraction/sage/internal/version"
 )
 
 func Run(args []string) int {

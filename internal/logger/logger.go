@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-const prefix = "git-sage: "
+const prefix = "sage: "
 
 func Fatal(format string, a ...any) int {
 	fmt.Fprintf(os.Stderr, prefix+format+"\n", a...)

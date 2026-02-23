@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"git-sage/internal/llm"
+	"github.com/iamtraction/sage/internal/llm"
 
 	"github.com/anthropics/anthropic-sdk-go"
 	"github.com/anthropics/anthropic-sdk-go/option"

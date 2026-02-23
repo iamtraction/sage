@@ -3,7 +3,7 @@ package google
 import (
 	"context"
 
-	"git-sage/internal/llm"
+	"github.com/iamtraction/sage/internal/llm"
 
 	"google.golang.org/genai"
 )

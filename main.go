@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"git-sage/internal/cmd"
+	"github.com/iamtraction/sage/internal/cmd"
 )
 
 func main() {

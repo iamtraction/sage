@@ -3,8 +3,8 @@ package config
 import (
 	"fmt"
 
-	"git-sage/internal/config"
-	"git-sage/internal/logger"
+	"github.com/iamtraction/sage/internal/config"
+	"github.com/iamtraction/sage/internal/logger"
 )
 
 func runShow() int {

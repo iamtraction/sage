@@ -6,12 +6,12 @@ import (
 
 // help command. show help message + list of available commands
 func runDefault() int {
-	fmt.Println("git-sage")
+	fmt.Println("sage")
 	fmt.Println()
 	fmt.Println("Git intelligence CLI tool.")
 	fmt.Println()
 	fmt.Println("Usage:")
-	fmt.Println("  git-sage <command> [options]")
+	fmt.Println("  sage <command> [options]")
 	fmt.Println()
 	fmt.Println("Commands:")
 	fmt.Println("  commit:   auto-generate commit message from staged changes")

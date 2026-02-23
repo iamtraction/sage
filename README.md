@@ -1,6 +1,6 @@
-# git-sage
+# sage
 
-AI-powered commit message generator. Stage your changes, run `git-sage commit`, and get a [Conventional Commit](https://www.conventionalcommits.org/) message — no thinking required.
+AI-powered commit message generator. Stage your changes, run `sage commit`, and get a [Conventional Commit](https://www.conventionalcommits.org/) message — no thinking required.
 
 ## Install
 
@@ -10,7 +10,7 @@ AI-powered commit message generator. Stage your changes, run `git-sage commit`, 
 curl -sSL https://raw.github.com/iamtraction/sage/main/install.sh | sh
 ```
 
-Installs to `~/.local/bin/git-sage`. Make sure `~/.local/bin` is in your `PATH`.
+Installs to `~/.local/bin/sage`. Make sure `~/.local/bin` is in your `PATH`.
 
 ### Windows (PowerShell)
 
@@ -18,36 +18,36 @@ Installs to `~/.local/bin/git-sage`. Make sure `~/.local/bin` is in your `PATH`.
 iex (iwr https://raw.github.com/iamtraction/sage/main/install.ps1).Content
 ```
 
-Installs to `%LOCALAPPDATA%\bin\git-sage.exe`. Make sure `%LOCALAPPDATA%\bin` is in your `PATH`.
+Installs to `%LOCALAPPDATA%\bin\sage.exe`. Make sure `%LOCALAPPDATA%\bin` is in your `PATH`.
 
 ### From Source
 
 ```sh
-go install git-sage@latest
+go install github.com/iamtraction/sage@latest
 ```
 
 ## Quick Start
 
 ```sh
 # 1. Set your provider
-git-sage config provider anthropic
+sage config provider anthropic
 
 # 2. Set your API key
-git-sage config api_key sk-ant-...
+sage config api_key sk-ant-...
 
 # 3. Stage changes and commit
 git add .
-git-sage commit
+sage commit
 ```
 
 ## Configuration
 
-Configuration is stored in `~/.config/git-sage/config.json` (Linux/macOS) or `%LOCALAPPDATA%\git-sage\config.json` (Windows).
+Configuration is stored in `~/.config/sage/config.json` (Linux/macOS) or `%LOCALAPPDATA%\sage\config.json` (Windows).
 
 ```sh
-git-sage config                        # show all config
-git-sage config <key>                  # get a value
-git-sage config <key> <value>          # set a value
+sage config                        # show all config
+sage config <key>                  # get a value
+sage config <key> <value>          # set a value
 ```
 
 ### Config Keys
@@ -64,7 +64,7 @@ git-sage config <key> <value>          # set a value
 You can add custom instructions to guide the commit message style:
 
 ```sh
-git-sage config instructions "always use lowercase, keep subject under 50 chars"
+sage config instructions "always use lowercase, keep subject under 50 chars"
 ```
 
 ## Providers
@@ -78,8 +78,8 @@ These providers call the LLM API directly. Set your `api_key` in config.
 | Google Gemini | `google` | `gemini-2.0-flash-lite` | [aistudio.google.com](https://aistudio.google.com/) |
 
 ```sh
-git-sage config provider anthropic
-git-sage config api_key sk-ant-...
+sage config provider anthropic
+sage config api_key sk-ant-...
 ```
 
 ### CLI-based
@@ -93,7 +93,7 @@ These providers wrap an installed CLI tool. They use the CLI's own authenticatio
 | Gemini CLI | `gemini-cli` | `gemini` | `npm i -g @google/gemini-cli` |
 
 ```sh
-git-sage config provider claude-code
+sage config provider claude-code
 # no api_key needed — just make sure `claude` is on your PATH
 ```
 
@@ -102,10 +102,10 @@ git-sage config provider claude-code
 Each provider has a default model, but you can override it:
 
 ```sh
-git-sage config model claude-sonnet-4-6    # for anthropic
-git-sage config model gpt-5                # for openai
-git-sage config model gemini-2.5-flash     # for google
-git-sage config model sonnet               # for claude-code (uses CLI aliases)
+sage config model claude-sonnet-4-6    # for anthropic
+sage config model gpt-5                # for openai
+sage config model gemini-2.5-flash     # for google
+sage config model sonnet               # for claude-code (uses CLI aliases)
 ```
 
 ## Usage
@@ -115,10 +115,10 @@ git-sage config model sonnet               # for claude-code (uses CLI aliases)
 git add -A
 
 # generate commit message and commit
-git-sage commit
+sage commit
 ```
 
-That's it. git-sage will analyze your staged diff, generate a Conventional Commit message, and run `git commit` for you.
+That's it. sage will analyze your staged diff, generate a Conventional Commit message, and run `git commit` for you.
 
 ## License
 

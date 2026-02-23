@@ -7,7 +7,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"git-sage/internal/llm"
+	"github.com/iamtraction/sage/internal/llm"
 )
 
 type Client struct{}

@@ -1,4 +1,4 @@
-module git-sage
+module github.com/iamtraction/sage
 
 go 1.26
 

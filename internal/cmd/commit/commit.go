@@ -3,6 +3,7 @@ package commit
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"git-sage/internal/config"
 	"git-sage/internal/git"
@@ -97,6 +98,8 @@ func Run(args []string) int {
 		return logger.Fatal("generate response: %v", err)
 	}
 
+	message = stripCodeBlock(message)
+
 	// commit
 
 	out, err := git.Commit(ctx, message)
@@ -107,4 +110,17 @@ func Run(args []string) int {
 	fmt.Println(out)
 
 	return 0
+}
+
+func stripCodeBlock(s string) string {
+	s = strings.TrimSpace(s)
+	if strings.HasPrefix(s, "```") {
+		s = s[3:]
+		if i := strings.Index(s, "\n"); i != -1 {
+			s = s[i+1:]
+		}
+		s = strings.TrimSuffix(strings.TrimSpace(s), "```")
+		s = strings.TrimSpace(s)
+	}
+	return s
 }

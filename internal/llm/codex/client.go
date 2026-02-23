@@ -30,27 +30,25 @@ func (c *Client) Generate(ctx context.Context, req llm.Request) (string, error) 
 		return "", nil
 	}
 
-	// codex exec has no --system-prompt flag, so we prepend system instructions to the user prompt
-	var prompt strings.Builder
-	if req.System != "" {
-		prompt.WriteString(req.System)
-		prompt.WriteString("\n\n")
-	}
-	userPrompt := req.User
-	if userPrompt == "" {
-		userPrompt = "."
-	}
-	prompt.WriteString(userPrompt)
-
 	args := []string{"exec", "--ephemeral"}
+
+	if req.System != "" {
+		args = append(args, "-c", "developer_instructions="+req.System)
+	}
 
 	if req.Model != "" {
 		args = append(args, "--model", req.Model)
 	}
 
-	args = append(args, prompt.String())
+	userPrompt := req.User
+	if userPrompt == "" {
+		userPrompt = "."
+	}
+
+	args = append(args, "-")
 
 	cmd := exec.CommandContext(ctx, "codex", args...)
+	cmd.Stdin = strings.NewReader(userPrompt)
 
 	var stdout, stderr bytes.Buffer
 	cmd.Stdout = &stdout

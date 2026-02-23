@@ -8,6 +8,7 @@ import (
 	"git-sage/internal/git"
 	"git-sage/internal/llm"
 	_ "git-sage/internal/llm/anthropic"
+	_ "git-sage/internal/llm/claude-code"
 	_ "git-sage/internal/llm/google"
 	_ "git-sage/internal/llm/openai"
 	"git-sage/internal/logger"

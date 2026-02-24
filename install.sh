@@ -14,10 +14,11 @@ case "$(uname -m)" in
 esac
 
 # resolve latest release version from GitHub
-VERSION=$(curl -fsSL https://api.github.com/repos/iamtraction/sage/releases/latest \
+TAG=$(curl -fsSL https://api.github.com/repos/iamtraction/sage/releases/latest \
   | grep '"tag_name":' | cut -d '"' -f4)
+VERSION="${TAG#v}"
 ARTIFACT="sage_${VERSION}_${OS}_${ARCH}.tar.gz"
-URL="https://github.com/iamtraction/sage/releases/download/${VERSION}/${ARTIFACT}"
+URL="https://github.com/iamtraction/sage/releases/download/${TAG}/${ARTIFACT}"
 
 INSTALL_DIR="$HOME/.local/bin"
 mkdir -p "$INSTALL_DIR"

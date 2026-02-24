@@ -8,9 +8,10 @@ $Arch = switch ($env:PROCESSOR_ARCHITECTURE) {
 
 # resolve latest release version from GitHub
 $Latest = Invoke-RestMethod -Uri "https://api.github.com/repos/iamtraction/sage/releases/latest"
-$Version = $Latest.tag_name
-$Artifact = "sage_$Version`_windows_$Arch.zip"
-$Url = "https://github.com/iamtraction/sage/releases/download/$Version/$Artifact"
+$Tag = $Latest.tag_name
+$Version = $Tag -replace '^v', ''
+$Artifact = "sage_${Version}_windows_$Arch.zip"
+$Url = "https://github.com/iamtraction/sage/releases/download/$Tag/$Artifact"
 
 $InstallDir = "$env:LOCALAPPDATA\bin"
 New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null

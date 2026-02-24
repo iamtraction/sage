@@ -15,7 +15,7 @@ Installs to `~/.local/bin/sage`. Make sure `~/.local/bin` is in your `PATH`.
 ### Windows (PowerShell)
 
 ```powershell
-iex (iwr https://raw.github.com/iamtraction/sage/main/install.ps1).Content
+iex "& { $(iwr -useb https://raw.github.com/iamtraction/sage/main/install.ps1) }"
 ```
 
 Installs to `%LOCALAPPDATA%\bin\sage.exe`. Make sure `%LOCALAPPDATA%\bin` is in your `PATH`.

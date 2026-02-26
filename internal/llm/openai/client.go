@@ -7,6 +7,8 @@ import (
 
 	"github.com/openai/openai-go/v3"
 	"github.com/openai/openai-go/v3/option"
+	"github.com/openai/openai-go/v3/packages/param"
+	"github.com/openai/openai-go/v3/shared"
 )
 
 type Client struct {
@@ -47,6 +49,18 @@ func (c *Client) Generate(ctx context.Context, req llm.Request) (string, error) 
 	params := openai.ChatCompletionNewParams{
 		Messages: messages,
 		Model:    openai.ChatModel(model),
+	}
+
+	if req.OutputSchema != nil {
+		params.ResponseFormat = openai.ChatCompletionNewParamsResponseFormatUnion{
+			OfJSONSchema: &shared.ResponseFormatJSONSchemaParam{
+				JSONSchema: shared.ResponseFormatJSONSchemaJSONSchemaParam{
+					Name:   "response",
+					Schema: req.OutputSchema,
+					Strict: param.NewOpt(true),
+				},
+			},
+		}
 	}
 
 	completion, err := c.client.Chat.Completions.New(ctx, params)

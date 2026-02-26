@@ -47,6 +47,10 @@ func (c *Client) Generate(ctx context.Context, req llm.Request) (string, error) 
 			Parts: []*genai.Part{{Text: req.System}},
 		}
 	}
+	if req.OutputSchema != nil {
+		config.ResponseMIMEType = "application/json"
+		config.ResponseJsonSchema = req.OutputSchema
+	}
 
 	userContent := req.User
 	if userContent == "" {

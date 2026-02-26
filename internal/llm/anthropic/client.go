@@ -50,6 +50,13 @@ func (c *Client) Generate(ctx context.Context, req llm.Request) (string, error) 
 	if req.System != "" {
 		params.System = []anthropic.TextBlockParam{{Text: req.System}}
 	}
+	if req.OutputSchema != nil {
+		params.OutputConfig = anthropic.OutputConfigParam{
+			Format: anthropic.JSONOutputFormatParam{
+				Schema: req.OutputSchema,
+			},
+		}
+	}
 
 	message, err := c.client.Messages.New(ctx, params)
 	if err != nil {

@@ -3,7 +3,9 @@ package codex
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
+	"os"
 	"os/exec"
 	"strings"
 
@@ -38,6 +40,22 @@ func (c *Client) Generate(ctx context.Context, req llm.Request) (string, error) 
 
 	if req.Model != "" {
 		args = append(args, "--model", req.Model)
+	}
+
+	if req.OutputSchema != nil {
+		schemaFile, err := os.CreateTemp("", "sage-schema-*.json")
+		if err != nil {
+			return "", fmt.Errorf("create schema temp file: %w", err)
+		}
+		defer os.Remove(schemaFile.Name())
+
+		if err := json.NewEncoder(schemaFile).Encode(req.OutputSchema); err != nil {
+			schemaFile.Close()
+			return "", fmt.Errorf("write schema: %w", err)
+		}
+		schemaFile.Close()
+
+		args = append(args, "--output-schema", schemaFile.Name())
 	}
 
 	userPrompt := req.User

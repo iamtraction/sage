@@ -3,6 +3,7 @@ package claudecode
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"os/exec"
 	"strings"
@@ -40,6 +41,14 @@ func (c *Client) Generate(ctx context.Context, req llm.Request) (string, error) 
 		args = append(args, "--model", req.Model)
 	}
 
+	if req.OutputSchema != nil {
+		schemaBytes, err := json.Marshal(req.OutputSchema)
+		if err != nil {
+			return "", fmt.Errorf("marshal json schema: %w", err)
+		}
+		args = append(args, "--output-format", "json", "--json-schema", string(schemaBytes))
+	}
+
 	userPrompt := req.User
 	if userPrompt == "" {
 		userPrompt = "."
@@ -61,5 +70,23 @@ func (c *Client) Generate(ctx context.Context, req llm.Request) (string, error) 
 		return "", fmt.Errorf("claude CLI: %w: %s", err, strings.TrimSpace(errMsg))
 	}
 
-	return strings.TrimSpace(stdout.String()), nil
+	output := strings.TrimSpace(stdout.String())
+
+	// when using --output-format json, the response is a JSON envelope
+	// with structured_output containing the schema-conforming result
+	if req.OutputSchema != nil {
+		var envelope struct {
+			Result           string          `json:"result"`
+			StructuredOutput json.RawMessage `json:"structured_output"`
+		}
+		if err := json.Unmarshal([]byte(output), &envelope); err != nil {
+			return output, nil // fall back to raw output
+		}
+		if envelope.StructuredOutput != nil {
+			return string(envelope.StructuredOutput), nil
+		}
+		return envelope.Result, nil
+	}
+
+	return output, nil
 }

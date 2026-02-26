@@ -5,6 +5,7 @@ import (
 
 	"github.com/iamtraction/sage/internal/cmd/commit"
 	"github.com/iamtraction/sage/internal/cmd/config"
+	"github.com/iamtraction/sage/internal/cmd/exec"
 	"github.com/iamtraction/sage/internal/git"
 	"github.com/iamtraction/sage/internal/logger"
 	"github.com/iamtraction/sage/internal/version"
@@ -35,6 +36,8 @@ func Run(args []string) int {
 		return commit.Run(args[1:])
 	case "config":
 		return config.Run(args[1:])
+	case "exec":
+		return exec.Run(args[1:])
 	default:
 		return logger.Fatal("unknown command %q", args[0])
 	}

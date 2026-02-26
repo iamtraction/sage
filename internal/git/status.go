@@ -46,6 +46,20 @@ func GetNameStatus(ctx context.Context) ([]FileChange, error) {
 	return changes, nil
 }
 
+// GetStatus returns the output of git status.
+func GetStatus(ctx context.Context, short bool) (string, error) {
+	args := []string{"status"}
+	if short {
+		args = append(args, "--short")
+	}
+	cmd := exec.CommandContext(ctx, "git", args...)
+	out, err := cmd.Output()
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(string(out)), nil
+}
+
 // FormatNameStatus formats the name status for the prompt.
 func FormatNameStatus(changes []FileChange) string {
 	var sb strings.Builder

@@ -3,11 +3,12 @@ package config
 import (
 	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/iamtraction/sage/internal/config"
 )
 
-var configKeys = []string{"provider", "model", "instructions", "api_key"}
+var configKeys = []string{"provider", "model", "instructions", "api_key", "auto_execute"}
 
 func getConfigValue(cfg *config.Config, key string) (any, bool) {
 	switch key {
@@ -19,6 +20,8 @@ func getConfigValue(cfg *config.Config, key string) (any, bool) {
 		return cfg.Instructions, true
 	case "api_key":
 		return cfg.APIKey, true
+	case "auto_execute":
+		return cfg.AutoExecute, true
 	default:
 		return nil, false
 	}
@@ -40,6 +43,16 @@ func setConfigValue(cfg *config.Config, key string, value string) error {
 		return nil
 	case "api_key":
 		cfg.APIKey = value
+		return nil
+	case "auto_execute":
+		switch strings.ToLower(value) {
+		case "true", "1", "yes":
+			cfg.AutoExecute = true
+		case "false", "0", "no":
+			cfg.AutoExecute = false
+		default:
+			return fmt.Errorf("invalid boolean value %q for auto_execute", value)
+		}
 		return nil
 	default:
 		return fmt.Errorf("unknown config key %q", key)

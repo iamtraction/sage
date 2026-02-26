@@ -18,6 +18,7 @@ type Config struct {
 	Model        string `json:"model"`
 	APIKey       string `json:"api_key,omitempty"`
 	Instructions string `json:"instructions,omitempty"`
+	AutoExecute  bool   `json:"auto_execute,omitempty"`
 }
 
 func ConfigPath() (string, error) {

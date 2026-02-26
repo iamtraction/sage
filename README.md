@@ -1,6 +1,6 @@
 # sage
 
-AI-powered Git intelligence assistant. Currently generates [Conventional Commit](https://www.conventionalcommits.org/) messages from staged changes — with more Git smarts on the way.
+AI-powered Git intelligence assistant. Use natural language to execute git and gh commands. Or, simply generate [Conventional Commit](https://www.conventionalcommits.org/) messages from staged changes.
 
 ## Install
 
@@ -38,6 +38,9 @@ sage config api_key sk-ant-...
 # 3. Stage changes and commit
 git add .
 sage commit
+
+# or use natural language to run git commands
+sage exec show me the last 5 commits
 ```
 
 ## Configuration
@@ -58,6 +61,7 @@ sage config <key> <value>          # set a value
 | `model` | Model override (optional — each provider has a sensible default) |
 | `api_key` | API key for SDK-based providers |
 | `instructions` | Custom instructions to influence commit message style |
+| `auto_execute` | Auto-execute non-destructive commands from `sage exec` (`true`/`false`) |
 
 ### Custom Instructions
 
@@ -110,6 +114,8 @@ sage config model sonnet               # for claude-code (uses CLI aliases)
 
 ## Usage
 
+### Commit
+
 ```sh
 # stage your changes
 git add -A
@@ -118,7 +124,24 @@ git add -A
 sage commit
 ```
 
-That's it. sage analyzes your staged diff, generates a Conventional Commit message, and commits the changes for you.
+sage analyzes your staged diff, generates a Conventional Commit message, and commits the changes for you.
+
+### Exec
+
+```sh
+# generate and execute git/gh commands from natural language
+sage exec list branches merged into main
+sage exec show commits by user@example.com this week
+sage exec create a tag v1.2.0 on HEAD
+
+# skip confirmation
+sage exec -y show recent tags
+
+# auto-execute non-destructive commands
+sage config auto_execute true
+```
+
+sage generates the appropriate git or gh command, shows it with a description, and asks for confirmation before executing. Destructive commands (force push, branch deletion, history rewriting) always require confirmation, even with `auto_execute` enabled.
 
 ## License
 
